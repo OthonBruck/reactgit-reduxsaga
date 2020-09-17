@@ -1,39 +1,72 @@
-import { createActions, createReducer } from "reduxsauce";
+export const Types = {
+  UPDATE_QUERY: "repos/UPDATE_QUERY",
+  ADD_REPO: "repos/ADD_REPO",
+  UPDATE_REPO: "repos/UPDATE_REPO",
+  DELETE_REPO: "repos/DELETE_REPO",
+};
 
-export const { Types, Creators } = createActions({
-  addRepo: ["repo"],
-  removeRepo: ["repo"],
-  updateRepo: ["repo"],
-});
-
-const initialState = {
+const INITIAL_STATE = {
+  query: "",
   listaRepos: [],
 };
 
-const add = (state = initialState, action) => [
-  ...state,
-  { listaRepos: [...state.listaRepos, action] },
-  console.log("entrou"),
-];
-const remove = (state = initialState, action) => [
-  ...state,
-  {
-    listaRepos: state.listaRepos.filter((item) => {
-      return item.id !== action.id;
-    }),
-  },
-];
-const update = (state = initialState, action) => [
-  ...state,
-  {
-    listaRepos: state.listaRepos.map((item) =>
-      item.id === action.id ? action : item
-    ),
-  },
-];
+function reposi(state = INITIAL_STATE, action) {
+  if (action.type === Types.UPDATE_QUERY) {
+    return {
+      ...state,
+      query: action.payload,
+    };
+  }
 
-export default createReducer(initialState, {
-  [Types.ADD_REPO]: add,
-  [Types.REMOVE_REPO]: remove,
-  [Types.UPDATE_REPO]: update,
-});
+  if (action.type === Types.ADD_REPO) {
+    return {
+      ...state,
+      listaRepos: state.listaRepos.concat(action.payload),
+    };
+  }
+
+  if (action.type === Types.DELETE_REPO) {
+    return {
+      ...state,
+      listaRepos: state.listaRepos.filter((r) => {
+        return r.id !== action.payload.id;
+      }),
+    };
+  }
+
+  if (action.type === Types.UPDATE_REPO) {
+    return {
+      ...state,
+      listaRepos: state.listaRepos.map((r) =>
+        r.id === action.payload.id ? action.payload : r
+      ),
+    };
+  }
+
+  return state;
+}
+
+export default reposi;
+
+// Actions
+export const Creators = {
+  updateQuery: (query) => ({
+    type: Types.UPDATE_QUERY,
+    payload: query,
+  }),
+
+  addRepo: (repo) => ({
+    type: Types.ADD_REPO,
+    payload: repo,
+  }),
+
+  deleteRepo: (repo) => ({
+    type: Types.DELETE_REPO,
+    payload: repo,
+  }),
+
+  updateRepo: (repo) => ({
+    type: Types.UPDATE_REPO,
+    payload: repo,
+  }),
+};

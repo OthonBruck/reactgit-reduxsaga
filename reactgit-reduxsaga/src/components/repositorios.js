@@ -9,7 +9,7 @@ import { Creators as ReposiActions } from "../store/ducks/reposi";
 
 class Repository extends Component {
   updateRepository = async (repo) => {
-    const resp = await api.get(`/repos/${repo.login}/${repo.name}`);
+    const resp = await api.get(`/repos/${repo.owner.login}/${repo.name}`);
     const {
       id,
       owner: { avatar_url, login },
@@ -30,6 +30,7 @@ class Repository extends Component {
     };
 
     this.props.updateRepo(repo);
+    alert("Atualizado com sucesso");
   };
   render() {
     const { repo } = this.props;

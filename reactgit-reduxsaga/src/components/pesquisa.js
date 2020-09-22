@@ -1,50 +1,13 @@
 import React, { Component } from "react";
 import { Grid, Input, Button } from "semantic-ui-react";
 import logo from "../images/logo.svg";
-import api from "../services/api";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Creators as ReposiActions } from "../store/ducks/reposi";
 
 class Pesquisa extends Component {
-  updateTexto = (texto) => {
-    this.setState({ texto });
-  };
-
-  addRepository = async () => {
-    try {
-      const response = await api.get(`/repos/${this.state.texto}`);
-      const {
-        id,
-        owner: { avatar_url, login },
-        name,
-        stargazers_count,
-        language,
-        forks,
-      } = response.data;
-
-      var repo = {
-        id,
-        owner: { avatar_url, login },
-        name,
-        stargazers_count,
-        language,
-        forks,
-      };
-      let found = this.props.listaRepos.find((r) => r.id === repo.id);
-      console.log(found);
-      if (found === undefined) {
-        this.props.addRepo(repo);
-      } else {
-        return alert("Dados já inseridos");
-      }
-    } catch (error) {
-      alert("Dados inseridos incorretamente");
-    }
-  };
-
   render() {
-    const { listaRepos } = this.props;
+    const { listaRepos, requestRepo, loading, texto, updateTexto } = this.props;
 
     return (
       <Grid centered className="search-component">
@@ -64,15 +27,19 @@ class Pesquisa extends Component {
               focus
               className="search-bar"
               type="text"
-              value={this.texto}
-              onChange={(evt) => this.updateTexto(evt.target.value)}
+              value={texto}
+              onChange={(evt) => updateTexto(evt.target.value)}
             />
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button className="search-button" onClick={this.addRepository}>
+            <Button
+              className="search-button"
+              onClick={() => requestRepo(texto)}
+            >
               ADD
             </Button>
           </Grid.Column>
+          {loading && <p className="search-header">Carregando...</p>}
         </Grid.Row>
       </Grid>
     );
@@ -80,7 +47,9 @@ class Pesquisa extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  texto: state.reposi.texto,
   listaRepos: state.reposi.listaRepos,
+  loading: state.reposi.loading,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(ReposiActions, dispatch);

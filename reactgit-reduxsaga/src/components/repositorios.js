@@ -2,38 +2,13 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 import remove from "../images/remove.svg";
 import update from "../images/reload.svg";
-import api from "../services/api";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Creators as ReposiActions } from "../store/ducks/reposi";
 
 class Repository extends Component {
-  updateRepository = async (repo) => {
-    const resp = await api.get(`/repos/${repo.owner.login}/${repo.name}`);
-    const {
-      id,
-      owner: { avatar_url, login },
-      name,
-      stargazers_count,
-      language,
-      forks,
-      fullName,
-    } = resp.data;
-    repo = {
-      id,
-      owner: { avatar_url, login },
-      name,
-      stargazers_count,
-      language,
-      forks,
-      fullName,
-    };
-
-    this.props.updateRepo(repo);
-    alert("Atualizado com sucesso");
-  };
   render() {
-    const { repo } = this.props;
+    const { repo, requestUpdateRepo } = this.props;
     return (
       <li>
         <Grid className="repo-component">
@@ -97,7 +72,7 @@ class Repository extends Component {
                 alt="atualizar"
                 className="repo-icons"
                 src={update}
-                onClick={() => this.updateRepository(repo)}
+                onClick={() => requestUpdateRepo(repo)}
               ></img>
             </Grid.Column>
           </Grid.Row>

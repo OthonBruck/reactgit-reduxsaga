@@ -95,7 +95,7 @@ export const Creators = {
     payload: texto,
   }),
 
-  deleteRepo: (repo) => ({
+  removeRepo: (repo) => ({
     type: Types.DELETE_REPO,
     payload: repo,
   }),

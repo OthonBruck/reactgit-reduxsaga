@@ -8,7 +8,7 @@ import { Creators as ReposiActions } from "../store/ducks/reposi";
 
 class Repository extends Component {
   render() {
-    const { repo, requestUpdateRepo } = this.props;
+    const { repo, requestUpdateRepo, removeRepo } = this.props;
     return (
       <li>
         <Grid className="repo-component">
@@ -66,7 +66,7 @@ class Repository extends Component {
                 alt="remover"
                 className="repo-icons"
                 src={remove}
-                onClick={() => this.props.removeRepo(repo)}
+                onClick={() => removeRepo(repo)}
               ></img>
               <img
                 alt="atualizar"

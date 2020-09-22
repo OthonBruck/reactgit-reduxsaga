@@ -13,7 +13,6 @@ const INITIAL_STATE = {
   texto: "",
   listaRepos: [],
   loading: false,
-  error: false,
 };
 
 function reposi(state = INITIAL_STATE, action) {
@@ -36,7 +35,6 @@ function reposi(state = INITIAL_STATE, action) {
       ...state,
       listaRepos: state.listaRepos.concat(action.payload),
       loading: false,
-      error: false,
     };
   }
 
@@ -44,7 +42,6 @@ function reposi(state = INITIAL_STATE, action) {
     return {
       ...state,
       loading: false,
-      error: true,
     };
   }
 
@@ -60,6 +57,7 @@ function reposi(state = INITIAL_STATE, action) {
   if (action.type === Types.REQUEST_UPDATE_REPO) {
     return {
       ...state,
+      loading: true,
     };
   }
 
@@ -69,12 +67,14 @@ function reposi(state = INITIAL_STATE, action) {
       listaRepos: state.listaRepos.map((r) =>
         r.id === action.payload.id ? action.payload : r
       ),
+      loading: false,
     };
   }
 
   if (action.type === Types.FAILURE_UPDATE_REPO) {
     return {
       ...state,
+      loading: false,
     };
   }
 

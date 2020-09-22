@@ -32,16 +32,18 @@ function* getRepository(action) {
       yield put({
         type: Types.FAILURE_ADD_REPO,
       });
+      alert("Não é permitido adicionar repositórios repetidos");
     } else {
       yield put({
         type: Types.SUCCESS_ADD_REPO,
         payload: repo,
       });
     }
-  } catch (error) {
+  } catch (err) {
     yield put({
       type: Types.FAILURE_ADD_REPO,
     });
+    alert("Repositorio não encontrado");
   }
 }
 
@@ -77,6 +79,7 @@ function* updateRepo(action) {
     yield put({
       type: Types.FAILURE_UPDATE_REPO,
     });
+    alert("Não foi possivel atualizar o repositorio");
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Pesquisa from "./components/pesquisa";
-import "./pesquisa.css";
+import "./App.css";
 import Lista from "./components/lista";
 
 import Header from "./components/header";

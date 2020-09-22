@@ -75,7 +75,6 @@ function* updateRepo(action) {
       payload: repo,
     });
   } catch (error) {
-    console.error(error.toString());
     yield put({
       type: Types.FAILURE_UPDATE_REPO,
     });

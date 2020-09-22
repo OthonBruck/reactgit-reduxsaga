@@ -1,6 +1,6 @@
 # ReactGit com Redux-Saga
 
-Projeto criado baseado na API do GitHub, que permite adicionar, remover e atualizar repositorios.
+Projeto criado baseado na API do GitHub, que permite adicionar, remover e atualizar repositórios.
 
 ## Clone e Instalação
 
@@ -9,4 +9,11 @@ Use o [npm](https://www.npmjs.com/get-npm) e [Git BASH](https://gitforwindows.or
 ```bash
 git clone https://github.com/OthonBruck/reactgit-reduxsaga.git
 npm install
+```
+
+## Inicializando
+Após clonar e baixar as dependências podemos utilizar o [yarn](https://yarnpkg.com/getting-started) para iniciar a aplicação.
+
+```bash
+yarn start
 ```

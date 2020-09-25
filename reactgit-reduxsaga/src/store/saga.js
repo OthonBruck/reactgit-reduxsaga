@@ -27,8 +27,7 @@ function* getRepository(action) {
       forks,
     };
 
-    let found = listaRepos.find((r) => r.id === repo.id);
-    if (found !== undefined) {
+    if ((found = listaRepos.find((r) => r.id === repo.id) !== undefined)) {
       yield put({
         type: Types.FAILURE_ADD_REPO,
       });

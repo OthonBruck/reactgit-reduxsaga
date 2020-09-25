@@ -8,6 +8,7 @@ Para rodar a aplicação é necessário ter o [Node.js](https://nodejs.org/en/) 
 Use o [Git BASH](https://gitforwindows.org/) e [npm](https://www.npmjs.com/get-npm) para clonar e baixar as dependências do projeto.
 
 ```bash
+cd reactgit-reduxsaga
 git clone https://github.com/OthonBruck/reactgit-reduxsaga.git
 npm install
 ```
